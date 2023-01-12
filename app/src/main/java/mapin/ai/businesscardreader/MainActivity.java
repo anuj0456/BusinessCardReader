@@ -15,13 +15,12 @@ import mapin.ai.businesscardreader.utility.Assets;
 public class MainActivity extends AppCompatActivity {
 
     private TextView text;
-    private MainViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        viewModel = new ViewModelProvider(this).get(MainViewModel.class);
+        MainViewModel viewModel = new ViewModelProvider(this).get(MainViewModel.class);
         text = findViewById(R.id.text);
         Assets.extractAssets(this);
 
@@ -34,11 +33,6 @@ public class MainActivity extends AppCompatActivity {
         File imageFile = Assets.getImageFile(this);
         viewModel.recognizeImage(imageFile);
 
-        viewModel.getResult().observe(this, result -> {
-            text.setText(result);
-        });
-
-
-
+        viewModel.getResult().observe(this, result -> text.setText(result));
     }
 }
